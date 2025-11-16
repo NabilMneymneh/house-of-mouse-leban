@@ -43,7 +43,7 @@ function App() {
       )}
       {currentView === 'admin' && <AdminPortal />}
       
-      <BottomNav currentView={currentView} onViewChange={handleViewChange} showAdmin={false} />
+      <BottomNav currentView={currentView} onViewChange={handleViewChange} showAdmin={true} />
     </div>
   )
 }
