@@ -34,6 +34,10 @@ export function Storefront({ showCart = false, onCartClose }: StorefrontProps) {
       </header>
 
       <main className="px-5 py-6">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold mb-2">Welcome to The Mouse House - A SUDOFIX company.</h1>
+          <p className="text-muted-foreground">We have a huge collection for you! Find and order your new mouse today!!</p>
+        </div>
         <ProductGrid onProductClick={setSelectedProduct} />
       </main>
 
