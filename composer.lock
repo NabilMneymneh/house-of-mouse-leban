@@ -1,0 +1,20 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "It is purposely minimal because this repository does not use Composer packages.",
+        "If you later add PHP dependencies, regenerate this file with `composer update`."
+    ],
+    "content-hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "packages": [],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "platform-overrides": [],
+    "plugin-api-version": "2.6.0"
+}
+
