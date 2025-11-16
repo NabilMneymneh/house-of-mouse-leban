@@ -48,7 +48,7 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[90vh] overflow-y-auto">
+      <SheetContent side="bottom" className="h-[90vh] overflow-y-auto px-[20px]">
         <SheetHeader>
           <SheetTitle className="text-left">{product.name}</SheetTitle>
         </SheetHeader>
