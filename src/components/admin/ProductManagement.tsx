@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Product } from '@/types'
 import { Card } from '@/components/ui/card'
@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Plus, Pencil, Trash, X } from '@phosphor-icons/react'
+import { Plus, Pencil, Trash, X, UploadSimple, Image as ImageIcon } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 
 interface ProductFormData {
@@ -50,10 +50,14 @@ export function ProductManagement() {
   const [showDialog, setShowDialog] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [formData, setFormData] = useState<ProductFormData>(INITIAL_FORM_DATA)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [isUploadingImage, setIsUploadingImage] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleAddProduct = () => {
     setEditingProduct(null)
     setFormData(INITIAL_FORM_DATA)
+    setImagePreview(null)
     setShowDialog(true)
   }
 
@@ -74,7 +78,52 @@ export function ProductManagement() {
       colors: product.colors || [],
       colorInput: ''
     })
+    setImagePreview(product.imageUrl)
     setShowDialog(true)
+  }
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file')
+      return
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image size should be less than 5MB')
+      return
+    }
+
+    setIsUploadingImage(true)
+
+    try {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64String = reader.result as string
+        setFormData(prev => ({ ...prev, imageUrl: base64String }))
+        setImagePreview(base64String)
+        toast.success('Image uploaded successfully')
+        setIsUploadingImage(false)
+      }
+      reader.onerror = () => {
+        toast.error('Failed to read image file')
+        setIsUploadingImage(false)
+      }
+      reader.readAsDataURL(file)
+    } catch (error) {
+      toast.error('Failed to upload image')
+      setIsUploadingImage(false)
+    }
+  }
+
+  const handleRemoveImage = () => {
+    setFormData(prev => ({ ...prev, imageUrl: '' }))
+    setImagePreview(null)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -128,6 +177,7 @@ export function ProductManagement() {
     setShowDialog(false)
     setFormData(INITIAL_FORM_DATA)
     setEditingProduct(null)
+    setImagePreview(null)
   }
 
   const handleAddColor = () => {
@@ -312,14 +362,74 @@ export function ProductManagement() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="imageUrl">Image URL *</Label>
-              <Input
-                id="imageUrl"
-                type="url"
-                value={formData.imageUrl}
-                onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
-                placeholder="https://example.com/mouse.jpg"
-              />
+              <Label>Product Image *</Label>
+              <div className="space-y-3">
+                {imagePreview ? (
+                  <div className="relative w-full aspect-square max-w-xs mx-auto bg-secondary rounded-lg overflow-hidden">
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute top-2 right-2 h-8 w-8 rounded-full"
+                      onClick={handleRemoveImage}
+                    >
+                      <X size={16} />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center bg-secondary/20 hover:bg-secondary/30 transition-colors">
+                    <ImageIcon size={48} className="mx-auto mb-3 text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Upload an image or enter a URL
+                    </p>
+                  </div>
+                )}
+                
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploadingImage}
+                    className="flex-1 gap-2"
+                  >
+                    <UploadSimple size={16} />
+                    {isUploadingImage ? 'Uploading...' : 'Upload Image'}
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </div>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                  </div>
+                </div>
+
+                <Input
+                  id="imageUrl"
+                  type="url"
+                  value={formData.imageUrl.startsWith('data:') ? '' : formData.imageUrl}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, imageUrl: e.target.value }))
+                    setImagePreview(e.target.value || null)
+                  }}
+                  placeholder="Enter image URL"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
