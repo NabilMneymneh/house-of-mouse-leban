@@ -83,20 +83,20 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
               Specifications
             </h3>
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-secondary p-3 rounded-lg">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: '#f5f5f5' }}>
                 <p className="text-xs text-muted-foreground">DPI</p>
                 <p className="font-semibold">{product.specs.dpi}</p>
               </div>
-              <div className="bg-secondary p-3 rounded-lg">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: '#f5f5f5' }}>
                 <p className="text-xs text-muted-foreground">Connectivity</p>
                 <p className="font-semibold">{product.specs.connectivity}</p>
               </div>
-              <div className="bg-secondary p-3 rounded-lg">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: '#f5f5f5' }}>
                 <p className="text-xs text-muted-foreground">Buttons</p>
                 <p className="font-semibold">{product.specs.buttons}</p>
               </div>
               {product.specs.weight && (
-                <div className="bg-secondary p-3 rounded-lg">
+                <div className="p-3 rounded-lg" style={{ backgroundColor: '#f5f5f5' }}>
                   <p className="text-xs text-muted-foreground">Weight</p>
                   <p className="font-semibold">{product.specs.weight}</p>
                 </div>
