@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Plus, Pencil, Trash } from '@phosphor-icons/react'
+import { Plus, Pencil, Trash, X } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 
 interface ProductFormData {
@@ -25,6 +25,8 @@ interface ProductFormData {
   weight: string
   inStock: boolean
   featured: boolean
+  colors: string[]
+  colorInput: string
 }
 
 const INITIAL_FORM_DATA: ProductFormData = {
@@ -38,7 +40,9 @@ const INITIAL_FORM_DATA: ProductFormData = {
   buttons: '6',
   weight: '',
   inStock: true,
-  featured: false
+  featured: false,
+  colors: [],
+  colorInput: ''
 }
 
 export function ProductManagement() {
@@ -66,7 +70,9 @@ export function ProductManagement() {
       buttons: product.specs.buttons.toString(),
       weight: product.specs.weight || '',
       inStock: product.inStock,
-      featured: product.featured || false
+      featured: product.featured || false,
+      colors: product.colors || [],
+      colorInput: ''
     })
     setShowDialog(true)
   }
@@ -105,7 +111,8 @@ export function ProductManagement() {
         weight: formData.weight || undefined
       },
       inStock: formData.inStock,
-      featured: formData.featured
+      featured: formData.featured,
+      colors: formData.colors.length > 0 ? formData.colors : undefined
     }
 
     if (editingProduct) {
@@ -121,6 +128,30 @@ export function ProductManagement() {
     setShowDialog(false)
     setFormData(INITIAL_FORM_DATA)
     setEditingProduct(null)
+  }
+
+  const handleAddColor = () => {
+    const color = formData.colorInput.trim()
+    if (!color) {
+      toast.error('Please enter a color')
+      return
+    }
+    if (formData.colors.includes(color)) {
+      toast.error('Color already added')
+      return
+    }
+    setFormData(prev => ({
+      ...prev,
+      colors: [...prev.colors, color],
+      colorInput: ''
+    }))
+  }
+
+  const handleRemoveColor = (colorToRemove: string) => {
+    setFormData(prev => ({
+      ...prev,
+      colors: prev.colors.filter(c => c !== colorToRemove)
+    }))
   }
 
   const handleDeleteProduct = (productId: string) => {
@@ -194,6 +225,17 @@ export function ProductManagement() {
                       <span>•</span>
                       <span>{product.specs.buttons} Buttons</span>
                     </div>
+
+                    {product.colors && product.colors.length > 0 && (
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-xs text-muted-foreground">Colors:</span>
+                        {product.colors.map((color) => (
+                          <Badge key={color} variant="outline" className="text-xs">
+                            {color}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
 
                     <div className="flex items-center gap-2 pt-2">
                       <Button
@@ -334,6 +376,55 @@ export function ProductManagement() {
                 placeholder="Detailed product description..."
                 rows={3}
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="colors">Available Colors (Optional)</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="colors"
+                  value={formData.colorInput}
+                  onChange={(e) => setFormData(prev => ({ ...prev, colorInput: e.target.value }))}
+                  placeholder="e.g., Black, White, Blue"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      handleAddColor()
+                    }
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleAddColor}
+                  className="gap-1 flex-shrink-0"
+                >
+                  <Plus size={16} />
+                  Add
+                </Button>
+              </div>
+              {formData.colors.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.colors.map((color) => (
+                    <Badge
+                      key={color}
+                      variant="secondary"
+                      className="gap-1 pr-1"
+                    >
+                      {color}
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-4 w-4 p-0 hover:bg-transparent"
+                        onClick={() => handleRemoveColor(color)}
+                      >
+                        <X size={12} />
+                      </Button>
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="flex items-center justify-between">

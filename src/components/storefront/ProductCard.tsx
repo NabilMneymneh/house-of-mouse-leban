@@ -32,6 +32,19 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           <h3 className="font-semibold text-sm line-clamp-2">{product.name}</h3>
         </div>
         
+        {product.colors && product.colors.length > 0 && (
+          <div className="flex items-center gap-1 flex-wrap">
+            {product.colors.slice(0, 3).map((color) => (
+              <Badge key={color} variant="outline" className="text-xs px-1.5 py-0">
+                {color}
+              </Badge>
+            ))}
+            {product.colors.length > 3 && (
+              <span className="text-xs text-muted-foreground">+{product.colors.length - 3}</span>
+            )}
+          </div>
+        )}
+        
         <div className="flex items-center justify-between">
           <p className="text-lg font-bold text-primary">
             ${product.price.toFixed(2)}

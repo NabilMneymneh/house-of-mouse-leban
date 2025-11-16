@@ -106,6 +106,25 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
 
           <Separator />
 
+          {product.colors && product.colors.length > 0 && (
+            <>
+              <div>
+                <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground mb-3">
+                  Available Colors
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.colors.map((color) => (
+                    <Badge key={color} variant="secondary" className="text-sm py-1.5 px-3">
+                      {color}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <Separator />
+            </>
+          )}
+
           <div>
             <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground mb-3">
               Description

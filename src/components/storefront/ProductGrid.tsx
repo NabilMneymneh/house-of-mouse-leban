@@ -11,12 +11,24 @@ interface ProductGridProps {
 export function ProductGrid({ onProductClick }: ProductGridProps) {
   const [products] = useKV<Product[]>('products', [])
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
+  const [selectedColor, setSelectedColor] = useState<string | null>(null)
   const [sortOption, setSortOption] = useState<SortOption>('none')
 
   const brands = useMemo(() => {
     if (!products) return []
     const brandSet = new Set(products.filter(p => p.inStock).map(p => p.brand))
     return Array.from(brandSet).sort()
+  }, [products])
+
+  const colors = useMemo(() => {
+    if (!products) return []
+    const colorSet = new Set<string>()
+    products.filter(p => p.inStock).forEach(p => {
+      if (p.colors) {
+        p.colors.forEach(color => colorSet.add(color))
+      }
+    })
+    return Array.from(colorSet).sort()
   }, [products])
 
   const filteredAndSortedProducts = useMemo(() => {
@@ -26,6 +38,10 @@ export function ProductGrid({ onProductClick }: ProductGridProps) {
       filtered = filtered.filter(p => p.brand === selectedBrand)
     }
 
+    if (selectedColor) {
+      filtered = filtered.filter(p => p.colors?.includes(selectedColor))
+    }
+
     if (sortOption === 'price-asc') {
       filtered = [...filtered].sort((a, b) => a.price - b.price)
     } else if (sortOption === 'price-desc') {
@@ -33,7 +49,7 @@ export function ProductGrid({ onProductClick }: ProductGridProps) {
     }
 
     return filtered
-  }, [products, selectedBrand, sortOption])
+  }, [products, selectedBrand, selectedColor, sortOption])
 
   if (!products || products.length === 0) {
     return (
@@ -57,12 +73,15 @@ export function ProductGrid({ onProductClick }: ProductGridProps) {
 
   return (
     <>
-      {brands.length > 1 && (
+      {(brands.length > 1 || colors.length > 0) && (
         <ProductFilters
           brands={brands}
+          colors={colors}
           selectedBrand={selectedBrand}
+          selectedColor={selectedColor}
           sortOption={sortOption}
           onBrandChange={setSelectedBrand}
+          onColorChange={setSelectedColor}
           onSortChange={setSortOption}
         />
       )}

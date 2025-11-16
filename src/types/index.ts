@@ -13,6 +13,7 @@ export interface Product {
   }
   inStock: boolean
   featured?: boolean
+  colors?: string[]
 }
 
 export interface CartItem {
