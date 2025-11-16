@@ -193,7 +193,7 @@ export function ProductManagement() {
             {products.map((product) => (
               <Card key={product.id} className="p-4">
                 <div className="flex gap-4">
-                  <div className="w-20 h-20 bg-secondary rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-20 aspect-square bg-secondary rounded-lg overflow-hidden flex-shrink-0">
                     <img
                       src={product.imageUrl}
                       alt={product.name}

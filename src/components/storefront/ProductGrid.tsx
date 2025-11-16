@@ -1,17 +1,24 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Product, Cart } from '@/types'
 import { ProductCard } from './ProductCard'
 import { ProductFilters, SortOption } from './ProductFilters'
 import { toast } from 'sonner'
+import { SAMPLE_PRODUCTS } from '@/lib/sampleProducts'
 
 interface ProductGridProps {
   onProductClick: (product: Product) => void
 }
 
 export function ProductGrid({ onProductClick }: ProductGridProps) {
-  const [products] = useKV<Product[]>('products', [])
+  const [products, setProducts] = useKV<Product[]>('products', [])
   const [cart, setCart] = useKV<Cart>('cart', { items: [] })
+
+  useEffect(() => {
+    if (!products || products.length === 0) {
+      setProducts(SAMPLE_PRODUCTS)
+    }
+  }, [])
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
   const [sortOption, setSortOption] = useState<SortOption>('none')
