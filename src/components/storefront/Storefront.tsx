@@ -27,13 +27,13 @@ export function Storefront({ showCart = false, onCartClose }: StorefrontProps) {
   return (
     <>
       <header className="sticky top-0 bg-primary text-primary-foreground z-40 shadow-md">
-        <div className="px-4 py-4">
+        <div className="px-5 py-4">
           <h1 className="text-2xl font-bold tracking-tight">House of Mouse</h1>
           <p className="text-sm opacity-90">Premium Computer Mice in Lebanon</p>
         </div>
       </header>
 
-      <main className="px-4 py-6">
+      <main className="px-5 py-6">
         <ProductGrid onProductClick={setSelectedProduct} />
       </main>
 

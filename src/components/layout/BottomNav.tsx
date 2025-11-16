@@ -7,18 +7,21 @@ type View = 'storefront' | 'cart' | 'admin'
 interface BottomNavProps {
   currentView: View
   onViewChange: (view: View) => void
+  showAdmin?: boolean
 }
 
-export function BottomNav({ currentView, onViewChange }: BottomNavProps) {
+export function BottomNav({ currentView, onViewChange, showAdmin = true }: BottomNavProps) {
   const [cart] = useKV<Cart>('cart', { items: [] })
   
   const cartItemCount = cart?.items.reduce((sum, item) => sum + item.quantity, 0) ?? 0
 
-  const navItems = [
+  const allNavItems = [
     { id: 'storefront' as View, icon: House, label: 'Shop' },
     { id: 'cart' as View, icon: ShoppingCart, label: 'Cart', badge: cartItemCount },
     { id: 'admin' as View, icon: User, label: 'Admin' },
   ]
+
+  const navItems = showAdmin ? allNavItems : allNavItems.filter(item => item.id !== 'admin')
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-border z-50">
