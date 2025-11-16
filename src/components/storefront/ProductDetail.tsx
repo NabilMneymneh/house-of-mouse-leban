@@ -23,13 +23,13 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
 
   const handleAddToCart = () => {
     setCart((currentCart) => {
-      const items = currentCart?.items ?? []
-      const existingItem = items.find(item => item.productId === product.id)
+      const currentItems = currentCart?.items || []
+      const existingItemIndex = currentItems.findIndex(item => item.productId === product.id)
       
-      if (existingItem) {
+      if (existingItemIndex >= 0) {
         return {
-          items: items.map(item =>
-            item.productId === product.id
+          items: currentItems.map((item, index) =>
+            index === existingItemIndex
               ? { ...item, quantity: item.quantity + quantity }
               : item
           )
@@ -37,7 +37,7 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
       }
       
       return {
-        items: [...items, { productId: product.id, quantity }]
+        items: [...currentItems, { productId: product.id, quantity }]
       }
     })
     

@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
-import { Product, Cart } from '@/types'
+import { Product, Cart, CartItem } from '@/types'
 import { ProductCard } from './ProductCard'
 import { ProductFilters, SortOption } from './ProductFilters'
 import { toast } from 'sonner'
@@ -13,15 +13,15 @@ interface ProductGridProps {
 export function ProductGrid({ onProductClick }: ProductGridProps) {
   const [products, setProducts] = useKV<Product[]>('products', [])
   const [cart, setCart] = useKV<Cart>('cart', { items: [] })
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
+  const [selectedColor, setSelectedColor] = useState<string | null>(null)
+  const [sortOption, setSortOption] = useState<SortOption>('none')
 
   useEffect(() => {
     if (!products || products.length === 0) {
       setProducts(SAMPLE_PRODUCTS)
     }
   }, [])
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
-  const [selectedColor, setSelectedColor] = useState<string | null>(null)
-  const [sortOption, setSortOption] = useState<SortOption>('none')
 
   const brands = useMemo(() => {
     if (!products) return []
@@ -64,22 +64,21 @@ export function ProductGrid({ onProductClick }: ProductGridProps) {
     e.stopPropagation()
     
     setCart((currentCart) => {
-      const items = currentCart?.items ?? []
-      const existingItem = items.find(item => item.productId === product.id)
+      const currentItems = currentCart?.items || []
+      const existingItemIndex = currentItems.findIndex(item => item.productId === product.id)
       
-      if (existingItem) {
-        return {
-          items: items.map(item =>
-            item.productId === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        }
+      let newItems: CartItem[]
+      if (existingItemIndex >= 0) {
+        newItems = currentItems.map((item, index) =>
+          index === existingItemIndex
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
       } else {
-        return {
-          items: [...items, { productId: product.id, quantity: 1 }]
-        }
+        newItems = [...currentItems, { productId: product.id, quantity: 1 }]
       }
+      
+      return { items: newItems }
     })
     
     toast.success(`${product.name} added to cart`)

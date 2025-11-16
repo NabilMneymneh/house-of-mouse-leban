@@ -31,7 +31,7 @@ export function CartSheet({ open, onClose, onCheckout }: CartSheetProps) {
     if (newQuantity < 1) return
     
     setCart((currentCart) => ({
-      items: (currentCart?.items ?? []).map(item =>
+      items: (currentCart?.items || []).map(item =>
         item.productId === productId
           ? { ...item, quantity: newQuantity }
           : item
@@ -41,7 +41,7 @@ export function CartSheet({ open, onClose, onCheckout }: CartSheetProps) {
 
   const removeItem = (productId: string) => {
     setCart((currentCart) => ({
-      items: (currentCart?.items ?? []).filter(item => item.productId !== productId)
+      items: (currentCart?.items || []).filter(item => item.productId !== productId)
     }))
     toast.success('Item removed from cart')
   }
