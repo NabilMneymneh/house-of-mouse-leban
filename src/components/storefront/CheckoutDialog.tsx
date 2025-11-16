@@ -199,7 +199,7 @@ export function CheckoutDialog({ open, onClose }: CheckoutDialogProps) {
             />
           </div>
 
-          <div className="bg-secondary p-4 rounded-lg">
+          <div className="p-4 rounded-lg" style={{ backgroundColor: '#f5f5f5' }}>
             <p className="text-sm text-muted-foreground mb-2">Payment Method</p>
             <p className="font-semibold">💵 Cash on Delivery</p>
           </div>

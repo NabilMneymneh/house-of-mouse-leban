@@ -56,7 +56,7 @@ export function CartSheet({ open, onClose, onCheckout }: CartSheetProps) {
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-full sm:max-w-md">
+      <SheetContent side="right" className="w-full sm:max-w-md px-5">
         <SheetHeader>
           <SheetTitle>Shopping Cart ({cartItems.length})</SheetTitle>
         </SheetHeader>
@@ -71,7 +71,7 @@ export function CartSheet({ open, onClose, onCheckout }: CartSheetProps) {
           </div>
         ) : (
           <div className="flex flex-col h-[calc(100vh-100px)] mt-6">
-            <ScrollArea className="flex-1 -mx-6 px-6">
+            <ScrollArea className="flex-1 -mx-5 px-5">
               <div className="space-y-4">
                 {cartItems.map((item) => (
                   <div key={item.productId} className="flex gap-4 pb-4 border-b">
@@ -135,7 +135,7 @@ export function CartSheet({ open, onClose, onCheckout }: CartSheetProps) {
               </div>
             </ScrollArea>
 
-            <div className="pt-4 border-t space-y-4">
+            <div className="pt-4 pb-10 border-t space-y-4">
               <div className="flex items-center justify-between text-lg font-bold">
                 <span>Total</span>
                 <span className="text-primary">${total.toFixed(2)}</span>
