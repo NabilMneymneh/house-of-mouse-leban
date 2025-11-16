@@ -2,38 +2,38 @@
 
 House of Mouse is a Lebanese e-commerce platform specializing exclusively in computer mice, offering a curated selection with cash-on-delivery payment to build trust and convenience for local customers.
 
-**Experience Qualities**: 
+
 1. **Trustworthy** - Clean, professional design with clear product information and transparent ordering process that builds confidence in cash-on-delivery transactions
 2. **Effortless** - Intuitive mobile-first navigation that makes browsing and ordering computer mice quick and friction-free
 3. **Modern** - Contemporary interface with smooth interactions that positions House of Mouse as a premium tech accessory destination
 
-**Complexity Level**: Light Application (multiple features with basic state)
-  - The app includes product browsing, cart management, order placement, and an admin portal for inventory and order management - all with persistent state but straightforward workflows
+- **Progression**: View product grid → Scroll through items → Tap product ca
 
-## Essential Features
 
-### Product Catalog Browsing
-- **Functionality**: Display grid of computer mice with images, names, prices, and key specs
-- **Purpose**: Allow customers to discover and compare mice offerings quickly
-- **Trigger**: User lands on homepage or navigates to products section
-- **Progression**: View product grid → Scroll through items → Tap product card → View detailed product page → Add to cart or return to browsing
-- **Success criteria**: Products load within 2 seconds, images are crisp on mobile, filtering works smoothly
-
-### Product Detail View
-- **Functionality**: Show comprehensive mouse information including multiple images, specifications (DPI, connectivity, brand), price, and description
-- **Purpose**: Provide all necessary information for purchase decision
-- **Trigger**: User taps on product card from catalog
-- **Progression**: View product images → Read specifications → Check price → Adjust quantity → Add to cart → See cart confirmation
-- **Success criteria**: All product data displays correctly, images are zoomable, add-to-cart provides immediate feedback
+- **Trigger**: User t
 
 ### Shopping Cart Management
-- **Functionality**: Persistent cart that shows selected items, quantities, subtotal, and allows modifications
 - **Purpose**: Let customers review and manage their order before checkout
-- **Trigger**: User adds item to cart or accesses cart icon
-- **Progression**: View cart items → Adjust quantities → Remove unwanted items → See updated total → Proceed to checkout
-- **Success criteria**: Cart persists across sessions, quantity changes update totals instantly, empty state guides users back to shopping
+- **Progression**: View cart items → Adjust quantities → Remove unwanted item
 
-### Checkout & Order Placement
+- **Functionality**: Collect delivery information (name, phone, address in Lebanon) and place cash-on-delivery order
+- **Trigger**: User clicks checkout from cart
+
+### Admin Portal - Orde
+- **Purpose**: Allow shop owner to process and track orders efficiently
+- **Progression**: View orders dashboard → Filter by status → Select o
+
+- **Functionality**: Add new mice products with images, specs, pricing; edit existing products; toggle product availability
+- **Trigger**: Shop owner navigates to products section in admin
+
+### Shopping Cart Management
+- **Empty Cart Checkout**: Disable checkout button and show friendly message guiding user to add products
+- **Purpose**: Let customers review and manage their order before checkout
+- **Non-Owner Admin Access**: Redirect unauthorized users a
+- **Simultaneous Orders**: Use timestamp-based order IDs to prevent conflicts, queue order processing
+
+
+
 - **Functionality**: Collect delivery information (name, phone, address in Lebanon) and place cash-on-delivery order
 - **Purpose**: Complete the purchase transaction with necessary delivery details
 - **Trigger**: User clicks checkout from cart
@@ -71,33 +71,32 @@ The design should evoke trust and modernity with a clean, premium feel that sugg
 
 ## Color Selection
 
-Analogous color scheme - using natural green tones that evoke trust, growth, and technology with warm undertones from Lebanese brand identity
+Complementary color scheme - pairing deep blue (trust, technology) with warm orange accents (Lebanese warmth, action)
 
-- **Primary Color**: Deep Forest Green (#0f6043 / oklch(0.40 0.12 165)) - Conveys trust, nature-inspired technology, and professionalism; used for headers, primary actions, and navigation with gradient effects
-- **Secondary Colors**: Vibrant Emerald Green (#07a06d / oklch(0.52 0.14 165)) for accent elements and gradient transitions, creating a sophisticated green palette that feels modern and fresh
-- **Accent Color**: Vibrant Emerald Green (oklch(0.52 0.14 165)) - Used for call-to-action buttons, important notifications, and order status highlights
-- **Supporting Colors**: Black (#000000) and Charcoal (#212121) for strong contrast, text hierarchy, and premium design elements
-- **Foreground/Background Pairings**: 
-  - Background (White oklch(1 0 0)): Black foreground (oklch(0.15 0 0)) - Ratio 18.4:1 ✓
-  - Card (Light Gray oklch(0.96 0 0)): Black foreground (oklch(0.15 0 0)) - Ratio 15.8:1 ✓
-  - Primary (Deep Forest Green oklch(0.40 0.12 165)): White text (oklch(1 0 0)) - Ratio 7.1:1 ✓
-  - Secondary (Vibrant Emerald oklch(0.52 0.14 165)): White text (oklch(1 0 0)) - Ratio 4.8:1 ✓
-  - Accent (Vibrant Emerald oklch(0.52 0.14 165)): White text (oklch(1 0 0)) - Ratio 4.8:1 ✓
+- **Primary Color**: Deep Royal Blue (oklch(0.45 0.15 260)) - Conveys technology, trust, and professionalism; used for headers, primary actions, and navigation
+- **Secondary Colors**: Light Gray (oklch(0.96 0 0)) for cards and soft backgrounds, maintaining focus on products without stark white harshness
+- **Accent Color**: Warm Orange (oklch(0.70 0.15 45)) - Energetic call-to-action color for add-to-cart buttons, important notifications, and order status highlights
+
+  - Background (White oklch(1 0 0)): Dark foreground (oklch(0.20 0 0)) - Ratio 16.1:1 ✓
+
+  - Primary (Deep Blue oklch(0.45 0.15 260)): White text (oklch(1 0 0)) - Ratio 6.2:1 ✓
+  - Secondary (oklch(0.96 0 0)): Dark text (oklch(0.35 0 0)) - Ratio 7.8:1 ✓
+  - Accent (Warm Orange oklch(0.70 0.15 45)): Dark text (oklch(0.20 0 0)) - Ratio 8.5:1 ✓
   - Muted (oklch(0.92 0 0)): Muted foreground (oklch(0.50 0 0)) - Ratio 5.1:1 ✓
 
-## Font Selection
+
 
 Typography should feel modern and tech-forward while maintaining excellent readability on mobile devices - Inter for its geometric precision and clean appearance across all screens.
 
-- **Typographic Hierarchy**: 
+
   - H1 (Brand Name/Logo): Inter Bold/32px/tight letter-spacing for impact on mobile headers
-  - H2 (Product Names): Inter SemiBold/24px/normal for product cards and detail headers
+
   - H3 (Section Headers): Inter SemiBold/18px/wide for category labels and form sections
-  - Body (Product Descriptions): Inter Regular/16px/relaxed leading (1.6) for comfortable mobile reading
+
   - Small (Specs, Prices): Inter Medium/14px/normal for product specifications and metadata
   - Button Labels: Inter SemiBold/16px/uppercase with letter-spacing for clear CTAs
 
-## Animations
+
 
 Animations should be subtle and purposeful, reinforcing the premium feel without delaying user actions - quick micro-interactions (100-200ms) for button feedback, smooth page transitions (300ms) for navigation flow.
 
@@ -107,7 +106,7 @@ Animations should be subtle and purposeful, reinforcing the premium feel without
 ## Component Selection
 
 - **Components**: 
-  - Product Grid: Custom component with Card (base container), AspectRatio (consistent image sizing), Badge (stock status, new arrivals)
+
   - Product Detail: Sheet/Dialog for mobile-optimized product view, Carousel for multiple product images, Separator for organizing info sections
   - Cart: Sheet (slide-in from right on mobile), ScrollArea for item list, Button variants for checkout/continue shopping
   - Checkout: Form with Input fields, Textarea for address, Select for region/city, Button for submission
@@ -115,21 +114,21 @@ Animations should be subtle and purposeful, reinforcing the premium feel without
   - Order Management: Card for order display, Badge for status indicators, Select for status changes, Accordion for order details
   - Product Management: Form with Input, Textarea, custom image upload component, Switch for stock toggle
   
-- **Customizations**: 
+
   - Custom ProductCard component combining Card with optimized image display and quick-add functionality
-  - Custom OrderStatusBadge with color-coded status indicators
+
   - Custom ImageUpload component for admin product management
-  - Custom floating CartButton with item count badge
+
   - Custom QuantitySelector with increment/decrement buttons
-  
+
 - **States**: 
   - Buttons: Default (solid accent orange), Hover (darker orange + subtle scale), Active (pressed inset effect), Disabled (muted gray, reduced opacity), Loading (spinner animation)
   - Inputs: Default (border-gray), Focus (primary blue ring with subtle glow), Error (destructive red border + icon), Success (green border for validated)
   - Cards: Default (subtle shadow), Hover (elevated shadow + border highlight on desktop), Selected (primary border)
   
-- **Icon Selection**: 
+
   - ShoppingCart (Phosphor) for cart button and navigation
-  - Plus/Minus for quantity adjustments
+
   - Package for order management
   - Pencil for edit actions
   - Trash for remove/delete
@@ -137,7 +136,7 @@ Animations should be subtle and purposeful, reinforcing the premium feel without
   - MagnifyingGlass for search functionality
   - User for admin profile
   - List for order list view
-  - Image for product photo placeholder
+
   
 - **Spacing**: 
   - Mobile: p-4 (1rem) container padding, gap-4 for product grid (2 columns), gap-6 between major sections
@@ -145,12 +144,12 @@ Animations should be subtle and purposeful, reinforcing the premium feel without
   - Components: p-4 card padding, gap-2 for form fields, gap-3 for button groups
   - Consistent use of space-y-* utilities for vertical rhythm
   
-- **Mobile**: 
+
   - Navigation: Bottom tab bar with 3 main sections (Home/Products, Cart, Admin) - fixed position, always accessible
   - Product Grid: 2 columns on mobile (grid-cols-2), 3 on tablet (md:grid-cols-3), 4 on desktop (lg:grid-cols-4)
   - Product Detail: Full-screen Sheet component that slides up from bottom, optimized for thumb-friendly interactions
-  - Cart: Slide-in Sheet from right side, takes 90% width on mobile for immersive cart experience
+
   - Forms: Stack vertically on mobile, full-width inputs with large touch targets (min-h-12)
-  - Admin: Collapsible Sidebar on desktop, drawer navigation on mobile, tab-based switching for main sections
+
   - Images: Optimized loading with skeleton placeholders, 1:1 aspect ratio for consistency, tap to zoom on mobile
-  - Typography: Scales appropriately - minimum 16px body text for readability without zoom
+
