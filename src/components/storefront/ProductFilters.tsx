@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Funnel, SortAscending, Palette } from '@phosphor-icons/react'
+import { SortAscending, Palette } from '@phosphor-icons/react'
 
 export type SortOption = 'none' | 'price-asc' | 'price-desc'
 
@@ -29,19 +29,19 @@ export function ProductFilters({
     <div className="flex flex-col gap-3 mb-6">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2 flex-1">
-          <Funnel className="text-muted-foreground" />
+          <Palette className="text-muted-foreground" />
           <Select
-            value={selectedBrand ?? 'all'}
-            onValueChange={(value) => onBrandChange(value === 'all' ? null : value)}
+            value={selectedColor ?? 'all'}
+            onValueChange={(value) => onColorChange(value === 'all' ? null : value)}
           >
             <SelectTrigger className="flex-1">
-              <SelectValue placeholder="All Brands" />
+              <SelectValue placeholder="All Colors" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Brands</SelectItem>
-              {brands.map((brand) => (
-                <SelectItem key={brand} value={brand}>
-                  {brand}
+              <SelectItem value="all">All Colors</SelectItem>
+              {colors.map((color) => (
+                <SelectItem key={color} value={color}>
+                  {color}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -65,28 +65,6 @@ export function ProductFilters({
           </Select>
         </div>
       </div>
-
-      {colors.length > 0 && (
-        <div className="flex items-center gap-2">
-          <Palette className="text-muted-foreground" />
-          <Select
-            value={selectedColor ?? 'all'}
-            onValueChange={(value) => onColorChange(value === 'all' ? null : value)}
-          >
-            <SelectTrigger className="flex-1">
-              <SelectValue placeholder="All Colors" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Colors</SelectItem>
-              {colors.map((color) => (
-                <SelectItem key={color} value={color}>
-                  {color}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      )}
 
       {(selectedBrand || selectedColor) && (
         <div className="flex items-center gap-2">

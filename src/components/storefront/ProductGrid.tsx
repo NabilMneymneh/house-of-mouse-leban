@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react'
 import { useKV } from '@github/spark/hooks'
-import { Product } from '@/types'
+import { Product, Cart } from '@/types'
 import { ProductCard } from './ProductCard'
 import { ProductFilters, SortOption } from './ProductFilters'
+import { toast } from 'sonner'
 
 interface ProductGridProps {
   onProductClick: (product: Product) => void
@@ -10,6 +11,7 @@ interface ProductGridProps {
 
 export function ProductGrid({ onProductClick }: ProductGridProps) {
   const [products] = useKV<Product[]>('products', [])
+  const [cart, setCart] = useKV<Cart>('cart', { items: [] })
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
   const [sortOption, setSortOption] = useState<SortOption>('none')
@@ -50,6 +52,31 @@ export function ProductGrid({ onProductClick }: ProductGridProps) {
 
     return filtered
   }, [products, selectedBrand, selectedColor, sortOption])
+
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation()
+    
+    setCart((currentCart) => {
+      const items = currentCart?.items ?? []
+      const existingItem = items.find(item => item.productId === product.id)
+      
+      if (existingItem) {
+        return {
+          items: items.map(item =>
+            item.productId === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        }
+      } else {
+        return {
+          items: [...items, { productId: product.id, quantity: 1 }]
+        }
+      }
+    })
+    
+    toast.success(`${product.name} added to cart`)
+  }
 
   if (!products || products.length === 0) {
     return (
@@ -98,6 +125,7 @@ export function ProductGrid({ onProductClick }: ProductGridProps) {
               key={product.id}
               product={product}
               onClick={() => onProductClick(product)}
+              onAddToCart={(e) => handleAddToCart(product, e)}
             />
           ))}
         </div>
