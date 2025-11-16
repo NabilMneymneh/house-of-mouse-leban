@@ -1,0 +1,8 @@
+{
+    "name": "house-of-mouse-leban/site",
+    "description": "Static storefront built with Vite/React; Composer manifest exists for hosting compatibility.",
+    "type": "project",
+    "license": "MIT",
+    "require": {}
+}
+
