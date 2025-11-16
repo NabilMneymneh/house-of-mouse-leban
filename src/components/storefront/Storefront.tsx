@@ -4,7 +4,7 @@ import { ProductDetail } from './ProductDetail'
 import { CartSheet } from './CartSheet'
 import { CheckoutDialog } from './CheckoutDialog'
 import { Product } from '@/types'
-import logo from '@/assets/images/logo.png'
+import logo from '@/assets/images/Wide-White.png'
 
 interface StorefrontProps {
   showCart?: boolean
