@@ -8,6 +8,7 @@ import { useKV } from '@github/spark/hooks'
 import { Cart } from '@/types'
 import { Plus, Minus } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 
 interface ProductDetailProps {
   product: Product | null
@@ -46,6 +47,8 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
     onClose()
   }
 
+  const images = product.imageUrls || (product.imageUrl ? [product.imageUrl] : [])
+
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[90vh] overflow-y-auto px-[20px]">
@@ -54,13 +57,23 @@ export function ProductDetail({ product, open, onClose }: ProductDetailProps) {
         </SheetHeader>
 
         <div className="space-y-6 mt-6">
-          <div className="aspect-square bg-secondary rounded-lg overflow-hidden">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <Carousel className="w-full max-w-xs mx-auto">
+            <CarouselContent>
+              {images.map((url, index) => (
+                <CarouselItem key={index}>
+                  <div className="aspect-square bg-secondary rounded-lg overflow-hidden">
+                    <img
+                      src={url}
+                      alt={`${product.name} image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
 
           <div>
             <div className="flex items-start justify-between mb-2">
