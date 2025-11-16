@@ -71,17 +71,18 @@ The design should evoke trust and modernity with a clean, premium feel that sugg
 
 ## Color Selection
 
-Complementary color scheme - pairing deep blue (trust, technology) with warm orange accents (Lebanese warmth, action)
+Analogous color scheme - using natural green tones that evoke trust, growth, and technology with warm undertones from Lebanese brand identity
 
-- **Primary Color**: Deep Royal Blue (oklch(0.45 0.15 260)) - Conveys technology, trust, and professionalism; used for headers, primary actions, and navigation
-- **Secondary Colors**: Light Gray (oklch(0.96 0 0)) for cards and soft backgrounds, maintaining focus on products without stark white harshness
-- **Accent Color**: Warm Orange (oklch(0.70 0.15 45)) - Energetic call-to-action color for add-to-cart buttons, important notifications, and order status highlights
+- **Primary Color**: Deep Forest Green (#0f6043 / oklch(0.40 0.12 165)) - Conveys trust, nature-inspired technology, and professionalism; used for headers, primary actions, and navigation with gradient effects
+- **Secondary Colors**: Vibrant Emerald Green (#07a06d / oklch(0.52 0.14 165)) for accent elements and gradient transitions, creating a sophisticated green palette that feels modern and fresh
+- **Accent Color**: Vibrant Emerald Green (oklch(0.52 0.14 165)) - Used for call-to-action buttons, important notifications, and order status highlights
+- **Supporting Colors**: Black (#000000) and Charcoal (#212121) for strong contrast, text hierarchy, and premium design elements
 - **Foreground/Background Pairings**: 
-  - Background (White oklch(1 0 0)): Dark foreground (oklch(0.20 0 0)) - Ratio 16.1:1 ✓
-  - Card (Light Gray oklch(0.96 0 0)): Dark foreground (oklch(0.20 0 0)) - Ratio 13.8:1 ✓
-  - Primary (Deep Blue oklch(0.45 0.15 260)): White text (oklch(1 0 0)) - Ratio 6.2:1 ✓
-  - Secondary (oklch(0.96 0 0)): Dark text (oklch(0.35 0 0)) - Ratio 7.8:1 ✓
-  - Accent (Warm Orange oklch(0.70 0.15 45)): Dark text (oklch(0.20 0 0)) - Ratio 8.5:1 ✓
+  - Background (White oklch(1 0 0)): Black foreground (oklch(0.15 0 0)) - Ratio 18.4:1 ✓
+  - Card (Light Gray oklch(0.96 0 0)): Black foreground (oklch(0.15 0 0)) - Ratio 15.8:1 ✓
+  - Primary (Deep Forest Green oklch(0.40 0.12 165)): White text (oklch(1 0 0)) - Ratio 7.1:1 ✓
+  - Secondary (Vibrant Emerald oklch(0.52 0.14 165)): White text (oklch(1 0 0)) - Ratio 4.8:1 ✓
+  - Accent (Vibrant Emerald oklch(0.52 0.14 165)): White text (oklch(1 0 0)) - Ratio 4.8:1 ✓
   - Muted (oklch(0.92 0 0)): Muted foreground (oklch(0.50 0 0)) - Ratio 5.1:1 ✓
 
 ## Font Selection
