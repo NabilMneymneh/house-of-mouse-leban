@@ -28,12 +28,8 @@ export function Storefront({ showCart = false, onCartClose }: StorefrontProps) {
   return (
     <>
       <header className="sticky top-0 bg-gradient-to-r from-primary to-secondary text-primary-foreground z-40 shadow-md">
-        <div className="px-5 py-4 flex items-center gap-3">
+        <div className="px-5 py-4 flex items-center justify-center">
           <img src={logo} alt="House of Mouse" className="h-10 w-auto" />
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">House of Mouse</h1>
-            <p className="text-sm opacity-90">Premium Computer Mice in Lebanon</p>
-          </div>
         </div>
       </header>
 
