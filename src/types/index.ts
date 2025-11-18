@@ -4,7 +4,8 @@ export interface Product {
   brand: string
   price: number
   description: string
-  imageUrl: string
+  imageUrl?: string
+  imageUrls?: string[]
   specs: {
     dpi: string
     connectivity: string
